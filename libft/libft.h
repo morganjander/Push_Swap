@@ -15,6 +15,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "get_next_line.h"
 # define INT_MAX 2147483647
 # define INT_MIN (-2147483647 - 1)
 
@@ -91,7 +92,7 @@ size_t				ft_strlen(const char *s);
 /*
 **Extra
 */
-
+int 				ft_wordcount(char const *str, char c);
 int					ft_islower(int c);
 int					ft_isupper(int c);
 int					ft_iswhitespace(int c);
