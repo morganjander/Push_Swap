@@ -1,7 +1,7 @@
 # Push_Swap
 ## Aim 1: Create a program **Push_Swap** that will print out instructions to sort a given stack of integers in ascending order, choosing from just the following moves:
-* **pa** push the top first element of stack a to stack b
-* **pb** push the top first element of stack b to stack a
+* **pa** push the top element of stack b to stack a
+* **pb** push the top element of stack a to stack b
 * **sa** swap first two elements of stack a
 * **sb** swap first two elements of stack b
 * **ss** execute **sa** and **sb**
