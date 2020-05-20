@@ -13,12 +13,10 @@ int main(int ac, char **av){
     char *line;
     int fd = 0;
     int i;
-    int len = 0;
     i = (get_next_line(fd, &line));
 	while (i == 1)
 	{
-        len = ft_strlen(line);
-        do_op(line, len, &start);
+        do_op(line, &start);
         i = (get_next_line(fd, &line));
 	}
     print_stack(start);

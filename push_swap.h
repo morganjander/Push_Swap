@@ -16,8 +16,9 @@ void    free_stack(my_stack *start);
 void     fuckyou(void);
 void    sort_3(char **av);
 void    make_stack(int ac, char **av, my_stack **start);
-void    do_op(char *line, int len, my_stack **start);
+void    do_op(char *line, my_stack **start);
 void    op_sa(my_stack **start);
 void    op_ra(my_stack **start);
+void    op_rra(my_stack **start);
 void    swap(my_stack **x, my_stack **y);
 #endif

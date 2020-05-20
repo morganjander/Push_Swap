@@ -34,7 +34,6 @@ void    free_stack(my_stack *start){
         start = ptr;
         ptr = ptr->next;
         free(start);
-
     }
 }
 
