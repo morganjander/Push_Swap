@@ -1,30 +1,23 @@
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
-#include "./libft/libft.h"
-#define ERROR {ft_putstr_fd("Error\n", 2); return 0;}
-typedef struct my_stack {
-    int                 num;
-    struct my_stack     *next;
-}                   stack;
+# define PUSH_SWAP_H
+# include "libft/libft.h"
 
-// rot_ops
+typedef struct  ps_stack
+{
+    int             num;
+    struct ps_stack *next;
+}  my_stack;
 
-void    pa(stack **a, stack **b);
-void    pb(stack **a, stack **b);
-
-//stack_ops
-
-int     pop(stack **head);
-void    print_stack(stack **list);
-int     stack_len(stack **head);
-
-//validate
-void    push(stack **head, int val);
-int     *get_order(stack **a);
-stack   *norm(stack **a);
-
-//not sure yet
-void    free_list(stack *list);
-void    str_to_stack(stack **a, char **av);
-stack   *populate_stack(int ac, char **av);
+my_stack    *new_node(int val);
+void    push(my_stack **head, int val);
+my_stack    *append(my_stack *end, my_stack *new);
+void print_stack(my_stack *start);
+void    free_stack(my_stack *start);
+void     fuckyou(void);
+void    sort_3(char **av);
+void    make_stack(int ac, char **av, my_stack **start);
+void    do_op(char *line, int len, my_stack **start);
+void    op_sa(my_stack **start);
+void    op_ra(my_stack **start);
+void    swap(my_stack **x, my_stack **y);
 #endif

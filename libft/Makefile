@@ -1,5 +1,5 @@
 NAME	= libft.a
-CFLAGS	=  -Wall -Werror -Wextra -I. -c -Wno-nullability-completeness
+CFLAGS	=  -Wall -Werror -Wextra -c 
 SRC		= *.c
 OBJ 	= $(SRC:.c=.o)
 

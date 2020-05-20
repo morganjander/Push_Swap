@@ -1,16 +1,23 @@
 LIB 	= ./libft/libft.a
-NAME 	= push_swap
 FLAGS 	= -Wall -Werror -Wextra
-OBJ 	= $(SRC:.c=.o)
-SRC		= *.c
 
-all: $(NAME)
+PNAME 	= push_swap
+CNAME	= checker
 
-$(NAME) : $(OBJ)
-	gcc -o $(NAME) $(OBJ) -L. $(LIB)
+POBJ 	= push_swap.o push_pop.o sort_3.o stack_ops.o
+COBJ	= checker.o stack_ops.o push_pop.o
+
+
+all: $(PNAME) $(CNAME)
+
+$(PNAME) : $(POBJ)
+	gcc -o $(PNAME) $(POBJ) -L. $(LIB)
+
+$(CNAME) : $(COBJ)
+	gcc -o $(CNAME) $(COBJ) -L. $(LIB)
 
 %.o: %.c
 	gcc $(FLAGS) -c -o $@ $<
 
 clean: 
-	rm -rf $(NAME) $(OBJ)
+	rm -rf $(COBJ) $(POBJ) $(CNAME) $(PNAME)

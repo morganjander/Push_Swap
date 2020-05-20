@@ -1,50 +1,19 @@
 #include "libft/libft.h"
 #include "push_swap.h"
+#include <stdio.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 
-void    free_list(stack *list){
-    while(list){
-        free(list);
-        list = list->next;
-    }
+int   main(int ac, char **av){
+  my_stack *start = NULL;
+  make_stack(ac, av, &start);
+ // print_stack(start);
+  free_stack(start);
+  sort_3(av);
+  
+  return 1;
 }
 
-void    str_to_stack(stack **a, char **av){
-    static char **args;
-    int i;
-    args = ft_strsplit(av[1], ' ');
-    i = ft_wordcount(av[1], ' ') - 1;
-    while (i >= 0){
-        push(a, ft_atoi(args[i--]));
-    }
-}
-
-stack   *populate_stack(int ac, char **av){
-    stack *numbers = NULL;
-    stack *normed = NULL;
-    int i;
-    if (ac == 2){
-        str_to_stack(&numbers, av);
-        normed = norm(&numbers);
-        free_list(numbers);
-        return (normed);
-    }
-    i = ac - 1;
-    numbers = malloc(sizeof(stack));
-    numbers->num = ft_atoi(av[i--]);
-    numbers->next = NULL;
-    while (i >= 1){
-        push(&numbers, ft_atoi(av[i--]));
-    }
-    normed = norm(&numbers);
-    free_list(numbers);
-    return(normed);
-}
-
-int     main(int ac, char **av) {
-    stack *a;
-    stack *b;
-    int len = 0;
-
-    b = NULL;
-
-}

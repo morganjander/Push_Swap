@@ -1,39 +1,52 @@
 #include "libft/libft.h"
-#include "./push_swap.h"
+#include "push_swap.h"
 
-int     pop(stack **head){
-    stack *next_node;
-    int     ret = -1;
+void    make_stack(int ac, char **av, my_stack **start){
 
-    if(!(*head){
-        return ret;
-    }
-    next_node = (*head)->next;
-    ret = (*head)->num;
-    free(*head);
-    *head = next_node;
-    return ret;
+  my_stack *new = NULL;
+  my_stack *end = NULL;
+  
+  new = new_node(ft_atoi(av[1]));
+  *start = end = new;
+  int i = 2;
+  while (i < ac){
+      new = new_node(ft_atoi(av[i]));
+      end = append(end,new);
+      i++;
+  }
 }
 
-void    print_stack(stack **list){
-
-    stack *node;
-    node = *list;
-    while(node){
-        ft_putnbr(node->num);
-        ft_putchar("\n");
-        node = node->next;
+void    do_op(char *line, int len, my_stack **start){
+    if (ft_strnequ(line, "sa", len) == 1){
+        op_sa(start);
+    }
+    if (ft_strnequ(line, "ra", len) == 1){
+        op_ra(start);
     }
 }
 
-int stack_len(stack **head){
-    stack *node;
-    int count = 0;
+void op_sa(my_stack **start){
+    my_stack *ptr;
+    ptr = (*start)->next;
+    swap(&ptr, start);
+}
 
-    node = *head;
-    while(node){
-        node = node->next;
-        count++;
+void op_ra(my_stack **start){
+    my_stack *ptr;
+    ptr = *start;
+    int tmp = ptr->num;
+    ptr = ptr->next;
+    free(*start);
+    *start = ptr;
+    while(ptr->next != NULL){
+        ptr = ptr->next;
     }
-    return count;
+    ptr->next = new_node(tmp);
+}
+
+void    swap(my_stack **x, my_stack **y){
+    int tmp;
+    tmp = (*x)->num;
+    (*x)->num = (*y)->num;
+    (*y)->num = tmp;
 }
