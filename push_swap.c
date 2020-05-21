@@ -8,12 +8,17 @@
 # include <sys/uio.h>
 
 int   main(int ac, char **av){
-  my_stack *start = NULL;
-  make_stack(ac, av, &start);
- // print_stack(start);
-  free_stack(start);
-  sort_3(av);
   
+  if(validate_input(ac, av)){
+    my_stack *stack_a = NULL;
+    my_stack *stack_b = NULL;
+    make_stack(ac, av, &stack_a);
+   // print_stack(stack_a);
+    sort_5(&stack_a, &stack_b);
+  //  print_stack(stack_a);
+    free_stack(stack_a);
+    free_stack(stack_b);
+  } 
   return 1;
 }
 

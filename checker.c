@@ -2,50 +2,35 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-int is_sorted(my_stack *start);
-
 int main(int ac, char **av){
 
-    my_stack *start = NULL;
-    make_stack(ac, av, &start);
+    my_stack *stack_a = NULL;
+    my_stack *stack_b = NULL;
+    make_stack(ac, av, &stack_a);
     
     
     char *line;
     int fd = 0;
     int i;
     i = (get_next_line(fd, &line));
-	while (i == 1)
-	{
-        do_op(line, &start);
-        i = (get_next_line(fd, &line));
-	}
-    print_stack(start);
-    if(is_sorted(start)){
-        ft_putchar('O');
-        ft_putchar('K');
-        ft_putchar('\n');
+    if (i){
+        while (i == 1){
+            do_op(line, &stack_a, &stack_b);
+            i = (get_next_line(fd, &line));
+        }
+        if(is_sorted(stack_a) && stack_b == NULL){
+            ft_putendl(OK);
+            } 
+        else {
+            ft_putendl(KO);
+        }
+        print_stack(stack_a);
     } else {
-        ft_putchar('K');
-        ft_putchar('O');
-        ft_putchar('\n');
+        ft_putendl(ERROR);
     }
-    free_stack(start);
+	
+    free_stack(stack_a);
 	return (0);
 
-}
-
-int is_sorted(my_stack *start){
-    int n = 0;
-    my_stack *ptr = NULL;
-    ptr = start;
-    while(ptr != NULL) {
-      if(ptr->num < n){
-          return 0;
-      } else {
-          n = ptr->num;
-      }
-      ptr = ptr->next;
-  }
-  return 1;
 }
 

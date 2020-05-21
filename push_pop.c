@@ -25,6 +25,16 @@ void print_stack(my_stack *start){
       ft_putchar('\n');
       ptr = ptr->next;
   }
+  ft_putchar('\n');
+}
+
+void    print_stacks(my_stack *stack_a, my_stack *stack_b){
+    if(stack_a) {
+        print_stack(stack_a);
+    }
+    if(stack_b) {
+        print_stack(stack_b);
+    }
 }
 
 void    free_stack(my_stack *start){
@@ -37,21 +47,31 @@ void    free_stack(my_stack *start){
     }
 }
 
-void    push(my_stack **head, int val){
-    my_stack *node;
-    node = new_node(val);
-    node->next = *head;
-    *head = node;
+int stack_len(my_stack **head){
+    int len = 0;
+    if(*head != NULL){
+        len = 1;
+        my_stack *ptr;
+        ptr = *head;
+        while(ptr->next != NULL){
+            len++;
+            ptr = ptr->next;
+        }
+    }
+    return len;
 }
 
-void     fuckyou(void){
-    ft_putchar('F');
-    ft_putchar('U');
-    ft_putchar('C');
-    ft_putchar('K');
-    ft_putchar('\n');
-    ft_putchar('Y');
-    ft_putchar('O');
-    ft_putchar('U');
-    ft_putchar('\n');
+int is_sorted(my_stack *start){
+    int n = 0;
+    my_stack *ptr = NULL;
+    ptr = start;
+    while(ptr != NULL) {
+      if(ptr->num < n){
+          return 0;
+      } else {
+          n = ptr->num;
+      }
+      ptr = ptr->next;
+  }
+  return 1;
 }

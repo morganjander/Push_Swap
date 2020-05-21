@@ -1,46 +1,126 @@
 #include "libft/libft.h"
 #include "push_swap.h"
+#include <stdio.h>
 
-void    sort_3(char **av){
+void    sort_3(my_stack **stack_a){
+    if(is_sorted(*stack_a)){
+        return;
+    }
     int top, mid, bot;
-    top = ft_atoi(av[1]);
-    mid = ft_atoi(av[2]);
-    bot = ft_atoi(av[3]);
+    my_stack *ptr;
+    ptr = *stack_a;
+
+    top = ptr->num;
+    ptr = ptr->next;
+    mid = ptr->num;
+    ptr = ptr->next;
+    bot = ptr->num;
     
     if(top > mid && mid < bot && bot > top){
-        ft_putchar('s');
-        ft_putchar('a');
-        ft_putchar('\n');
+        op_sa(stack_a);
+        ft_putendl(SA);
     }
 
     else if(top > mid && mid > bot && bot < top){
-        ft_putchar('s');
-        ft_putchar('a');
-        ft_putchar('\n');
-        ft_putchar('r');
-        ft_putchar('r');
-        ft_putchar('a');
-        ft_putchar('\n');
+        op_sa(stack_a);
+        ft_putendl(SA);
+        op_rra(stack_a);
+        ft_putendl(RRA);
     }
 
     else if(top > mid && mid < bot && bot < top){
-        ft_putchar('r');
-        ft_putchar('a');
-        ft_putchar('\n');
+        op_ra(stack_a);
+        ft_putendl(RA);
     }
 
     else if(top < mid && mid > bot && bot > top){
-        ft_putchar('s');
-        ft_putchar('a');
-        ft_putchar('\n');
-         ft_putchar('r');
-        ft_putchar('a');
-        ft_putchar('\n');
+        op_sa(stack_a);
+        ft_putendl(SA);
+        op_ra(stack_a);
+        ft_putendl(RA);
     }
     else {
-        ft_putchar('r');
-        ft_putchar('r');
-        ft_putchar('a');
-        ft_putchar('\n');
+        op_rra(stack_a);
+        ft_putendl(RRA);
+    }
+}
+
+void    sort_5(my_stack **stack_a, my_stack **stack_b){
+    op_pb(stack_a, stack_b);
+    ft_putendl(PB);
+    op_pb(stack_a, stack_b);
+    ft_putendl(PB);
+    sort_3(stack_a);
+
+    
+    int pos = find_pos(*stack_a, (*stack_b)->num);
+    insert(pos, stack_a, stack_b);
+    pos = find_pos(*stack_a, (*stack_b)->num);
+    insert(pos, stack_a, stack_b);
+
+}
+
+int     find_pos(my_stack *start, int n){//only for sorted stacks!
+   my_stack *ptr = start;
+   int pos = 0;
+   if (n < ptr->num){
+       return pos;
+   }
+   while (n > ptr->num && ptr->next != NULL){
+           ptr = ptr->next;
+           pos++;
+       }
+    if(n > ptr->num){
+        pos++;
+    }
+   return pos;
+}
+
+void    insert(int pos, my_stack **stack_a, my_stack **stack_b){
+    int i = stack_len(stack_a) - pos;
+    switch(i){
+        case 0:
+        op_pb(stack_b, stack_a);
+        ft_putendl(PA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        return;
+        case 1:
+        op_rra(stack_a);
+        ft_putendl(RRA);
+        op_pb(stack_b, stack_a);
+        ft_putendl(PA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        return;
+        case 2:
+        op_rra(stack_a);
+        ft_putendl(RRA);
+        op_rra(stack_a);
+        ft_putendl(RRA);
+        op_pb(stack_b, stack_a);
+        ft_putendl(PA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        op_ra(stack_a);
+        ft_putendl(RA);
+        return;
+        case 3:
+        op_pb(stack_b, stack_a);
+        ft_putendl(PA);
+        op_sa(stack_a);
+        ft_putendl(SA);
+        return;
+        case 4:
+        op_pb(stack_b, stack_a);
+        ft_putendl(PA);
+        return;
+        default:
+        return;
+
     }
 }

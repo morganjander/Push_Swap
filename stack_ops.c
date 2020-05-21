@@ -17,21 +17,26 @@ void    make_stack(int ac, char **av, my_stack **start){
   }
 }
 
-void    do_op(char *line, my_stack **start){
-    printf("line is: %s\n", line);
+void    do_op(char *line, my_stack **stack_a, my_stack **stack_b){
     
     if (line[0] == 's' && line[1] == 'a'){
-        op_sa(start);
+        op_sa(stack_a);
     }
 
     if (line[0] == 'r' && line[1] == 'a'){
-        op_ra(start);
-        printf("ra op\n");
+        op_ra(stack_a);
     }
 
     if (line[0] == 'r' && line[1] == 'r' && line[2] == 'a'){
-        op_rra(start);
+        op_rra(stack_a);
         
+    }
+    if (line[0] == 'p' && line[1] == 'b'){
+        op_pb(stack_a, stack_b);
+        
+    }
+    if(line[0] == 'p' && line[1] == 'a'){
+        op_pb(stack_b, stack_a);
     }
 }
 
@@ -68,6 +73,29 @@ void op_rra(my_stack **start){//bottom goes to top
     ptr = *start;
     *start = new_node(tmp);
     (*start)->next = ptr;
+}
+
+void op_pb(my_stack **stack_a, my_stack **stack_b){//top of a to top of b
+    if (*stack_a == NULL){
+        return;
+    }
+    my_stack *ptra = *stack_a;
+    my_stack *ptrb;
+    ptrb = new_node(ptra->num);
+    if(*stack_b == NULL){
+        *stack_b = ptrb;
+    } else {
+        ptrb->next = *stack_b;
+        *stack_b = ptrb;
+    }
+    if(stack_len(stack_a) == 1) {
+         free(*stack_a);
+         *stack_a = NULL;
+    } else {
+        ptra = ptra->next;
+        free(*stack_a);
+        *stack_a = ptra;
+    }
 }
 
 void    swap(my_stack **x, my_stack **y){
