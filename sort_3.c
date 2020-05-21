@@ -46,18 +46,17 @@ void    sort_3(my_stack **stack_a){
 }
 
 void    sort_5(my_stack **stack_a, my_stack **stack_b){
-    op_pb(stack_a, stack_b);
-    ft_putendl(PB);
-    op_pb(stack_a, stack_b);
-    ft_putendl(PB);
+    int pos;
+    while(stack_len(stack_a) > 3){
+        op_pb(stack_a, stack_b);
+        ft_putendl(PB);
+    }
     sort_3(stack_a);
 
-    
-    int pos = find_pos(*stack_a, (*stack_b)->num);
-    insert(pos, stack_a, stack_b);
-    pos = find_pos(*stack_a, (*stack_b)->num);
-    insert(pos, stack_a, stack_b);
-
+    while(*stack_b){
+        pos = find_pos(*stack_a, (*stack_b)->num);
+        insert(pos, stack_a, stack_b);
+    }
 }
 
 int     find_pos(my_stack *start, int n){//only for sorted stacks!
