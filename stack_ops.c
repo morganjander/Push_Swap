@@ -23,12 +23,24 @@ void    do_op(char *line, my_stack **stack_a, my_stack **stack_b){
         op_sa(stack_a);
     }
 
+    if (line[0] == 's' && line[1] == 'b'){
+        op_sa(stack_b);
+    }
+
     if (line[0] == 'r' && line[1] == 'a'){
         op_ra(stack_a);
     }
 
+    if (line[0] == 'r' && line[1] == 'b'){
+        op_ra(stack_b);
+    }
+
     if (line[0] == 'r' && line[1] == 'r' && line[2] == 'a'){
         op_rra(stack_a);
+        
+    }
+    if (line[0] == 'r' && line[1] == 'r' && line[2] == 'b'){
+        op_rra(stack_b);
         
     }
     if (line[0] == 'p' && line[1] == 'b'){
@@ -103,4 +115,9 @@ void    swap(my_stack **x, my_stack **y){
     tmp = (*x)->num;
     (*x)->num = (*y)->num;
     (*y)->num = tmp;
+}
+
+void print_do_op(char *s, my_stack **stack_a, my_stack **stack_b){
+    ft_putendl(s);
+    do_op(s, stack_a, stack_b);
 }
