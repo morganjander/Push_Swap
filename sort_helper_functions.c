@@ -121,7 +121,7 @@ int search_from_bottom(my_stack *stack, int low, int high){
 	while (i > -1){
 		if (array[i] >= low && array[i] <= high){
 			ret = array[i];
-			return ret;
+			break;
 		}
 		i--;
 	}
@@ -131,7 +131,7 @@ int search_from_bottom(my_stack *stack, int low, int high){
 
 int search_from_top(my_stack *stack, int low, int high){
 	while(stack){
-		if (stack->num >= low && stack->num < high){
+		if (stack->num >= low && stack->num <= high){
 			return stack->num;
 		}
 		stack = stack->next;
@@ -150,48 +150,114 @@ int contains(my_stack *stack, int low, int high){
 }
 
 void check_b(my_stack **a, my_stack **b){
+	int spot = find_spot(*b, (*a)->num);
+	int i = 0;
+	if (spot <= stack_len(b) / 2) {
+		while (i < spot){
+			print_do_op(RB, a, b);
+			i++;
+		}
+		print_do_op(PB, a, b);
+		i = 0;
+		while (i < spot){
+			print_do_op(RRB, a, b);
+			i++;
+		}
+	}else {
+		
+		spot = stack_len(b) - spot;
+		while (i < spot){
+			print_do_op(RRB, a, b);
+			i++;
+		}
+		print_do_op(PB, a, b);
+		i = 0;
+		while (i < (spot + 1)){	
+			print_do_op(RB, a, b);
+			i++;
+		}
+	}
+}
+
+void check_a_and_b(my_stack **a, my_stack **b, int n, int move){
 
 	if (!(*b)){
 		print_do_op(PB, a, b);
+		return;
 	}
-	else if (stack_len(b) == 1){
+	if (stack_len(b) == 1){
 		if ((*a)->num < (*b)->num){
 			print_do_op(PB, a, b);
 			print_do_op(SB, a, b);
+			return;
 		}
 		else {
 			print_do_op(PB, a, b);
+			return;
 		}
 	}
-	else {
-		int spot = find_spot(*b, (*a)->num);
-		int i = 0;
-		if (spot <= stack_len(b) / 2) {
-			while (i < spot){
-				print_do_op(RB, a, b);
+
+	int spot = find_spot(*b, n);
+	int i = 0;
+	if (move == 1 && spot <= stack_len(b) / 2) {//if n is hold_first, ie in the top half of stack a, and it belongs in the top half of stack b
+		while (i < spot && moves_to_top(*a, n) != 0){
+				print_do_op(RR, a, b);
 				i++;
 			}
+			if (i < spot){
+				while (i < spot){
+					print_do_op(RB, a, b);
+					i++;
+				}
+			} else if (moves_to_top(*a, n) != 0){
+				while (moves_to_top(*a, n) != 0){
+					print_do_op(RA, a, b);
+				}
+			}//this should move hold_first to top of stack a and make sure stack b is ready to receive it
 			print_do_op(PB, a, b);
 			i = 0;
 			while (i < spot){
 				print_do_op(RRB, a, b);
 				i++;
 			}
-		}else {
-			
-			spot = stack_len(b) - spot;
-			while (i < spot){
-				print_do_op(RRB, a, b);
+			return;
+	}
+   if (move == 2 && spot > stack_len(b) / 2) {//if n is hold_second, ie in the bottom half of stack a, and it belongs in the bottom half of stack b
+		spot = stack_len(b) - spot;
+		while (i < spot && moves_to_top(*a, n) != 0){
+				print_do_op(RRR, a, b);
 				i++;
 			}
+			if (i < spot){
+				while (i < spot){
+					print_do_op(RRB, a, b);
+					i++;
+				}
+			} else if (moves_to_top(*a, n) != 0){
+				while (moves_to_top(*a, n) != 0){
+					print_do_op(RRA, a, b);
+				}
+			}//this should move hold_second to top of stack a and make sure stack b is ready to receive it
 			print_do_op(PB, a, b);
 			i = 0;
 			while (i < (spot + 1)){
 				print_do_op(RB, a, b);
 				i++;
 			}
-		}
-		
-		
-	}
+			return;
+	}   
+	if (move == 1){
+		while (moves_to_top(*a, n) != 0) {
+            print_do_op(RA, a, b);
+        }
+        check_b(a, b);
+		return;
+	}       
+	if (move == 2){
+		while (moves_to_top(*a, n) != 0) {
+                print_do_op(RRA, a, b);
+            }
+        check_b(a, b);
+		return;
+	}                 
 }

@@ -1,6 +1,5 @@
 #include "libft/libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
 int   validate_input(int ac, char **av){
   int ret = 0;
@@ -11,18 +10,18 @@ int   validate_input(int ac, char **av){
   return ret;
 }
 
-int found_dupes(int ac, char **av){
-  int x = 0;
-  int y = 0;
-  while(x < ac){
-    y = x + 1;
-    while(y < ac){
-      if(ft_atoi(av[x]) == ft_atoi(av[y])){
-        return 1;
-      }
-      y++;
-    }
-    x++;
-  }
-    return 0;
+int			valid_input(int ac, char **av)
+{
+	if (ac == 2)
+	{
+		if (!valid_input_string(av))
+			return (0);
+	}
+	else if (ac > 2)
+	{
+		if (!valid_input_int(ac, av))
+			return (0);
+	}
+	return (1);
 }
+

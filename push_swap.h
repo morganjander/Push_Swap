@@ -49,12 +49,20 @@ void	push_max_a(my_stack **b, my_stack **a, int repeat);
 int     find_position(my_stack *start, int n);
 
 void	sort_4_or_5(my_stack **a, my_stack **b);
-void	sort_20(my_stack **a, my_stack **b);
-void    sort_100(my_stack **a, my_stack **b);
+void    sort_100(my_stack **a, my_stack **b, int num);
 int     search_from_bottom(my_stack *stack, int low, int high);
 int     search_from_top(my_stack *stack, int low, int high);
 int     moves_to_top(my_stack *stack, int num);
 int     contains(my_stack *stack, int low, int high);
 void    check_b(my_stack **a, my_stack **b);
-int	find_spot(my_stack *start, int n);
+void    check_a_and_b(my_stack **a, my_stack **b, int n, int move);
+int	    find_spot(my_stack *start, int n);
+
+int		valid_input_string(char **av);
+int		valid_input_int(int ac, char **av);
+int		only_digits(char *str);
+int		int_overflows(const char *str);
+int		valid_input(int ac, char **av);
+int		check_op(char *line);
+
 #endif

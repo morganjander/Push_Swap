@@ -59,39 +59,25 @@ void	sort_4_or_5(my_stack **a, my_stack **b)
 	}
 }
 
-void	sort_20(my_stack **a, my_stack **b)
-{
-	int	range = 0;
-	int i = 1;
-
-	while (*a)
-	{
-		range += 15;
-		while (i < range)
-		{
-			if (!(*a))
-				break ;
-			if ((*a)->num <= range)
-			{
-				print_do_op(PB, a, b);
-				i++;
-			}
-			else
-				print_do_op(RA, a, b);
-		}
-	}
-	i--;
-	push_max_a(b, a, i);
-}
-
-void sort_100(my_stack **a, my_stack **b){
+void sort_100(my_stack **a, my_stack **b, int num){
     
-    //int max = find_max(*a);
-    int range = 100 / 5;
+    int max = find_max(*a);
+    
+    int range;
+    if (num == 10) {
+        range = max;
+    }
+    if (num == 100) {
+        range = max / 9;
+    }
+    if (num == 50) {
+        range = max / 5;
+    }
+    if (num == 500) {
+        range = max / 22;
+    }
     int chunk_high = range;
     int chunk_low = 0;
-
-
     int hold_first;
     int hold_second;
 
@@ -101,26 +87,16 @@ void sort_100(my_stack **a, my_stack **b){
             hold_second = search_from_bottom(*a, chunk_low, chunk_high);
             if (hold_first != hold_second){
                 if (moves_to_top(*a, hold_first) <= moves_to_top(*a, hold_second)) {
-                    while (moves_to_top(*a, hold_first) != 0) {
-                        print_do_op(RA, a, b);
-                    }
-                    check_b(a, b);
+                    check_a_and_b(a, b, hold_first, 1);
                 }
 
                 else {
-                    while (moves_to_top(*a, hold_second) != 0) {
-                        print_do_op(RRA, a, b);
-                    }
-                    check_b(a, b);
+                    check_a_and_b(a, b, hold_second, 2);
                 }
             }
             else {
-                while (moves_to_top(*a, hold_first) != 0) {
-                        print_do_op(RA, a, b);
-                    }
-                    check_b(a, b);
+                check_a_and_b(a, b, hold_first, 1);
             }
-    
         }
         chunk_high += range;
         chunk_low += range;
@@ -129,9 +105,4 @@ void sort_100(my_stack **a, my_stack **b){
     while (*b) {
         print_do_op(PA, a, b);
     }
-        
-   
-    
-    
-
 }
