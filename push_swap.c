@@ -13,11 +13,10 @@ int   main(int ac, char **av){
         return 0;
     }
   
-  if(valid_input(ac, av)){
+  if(validate_input(ac, av)){
     my_stack *stack_a = NULL;
     my_stack *stack_b = NULL;
     make_stack(ac, av, &stack_a);
-    printf("ac:%d", ac);
 
    if(ac == 4) {
      sort_3(&stack_a, &stack_b);

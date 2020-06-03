@@ -13,7 +13,7 @@ int		valid_input_string(char **av)
 	while (arr[i])
 	{
 		if (int_overflows(arr[i]))
-			return (0);
+            return (0);
 		i++;
 	}
 	return (1);
@@ -26,15 +26,20 @@ int		valid_input_int(int ac, char **av)
 	i = 1;
 	while (av[i])
 	{
-		if (int_overflows(av[i]))
+		if (int_overflows(av[i])){
 			return (0);
-		if (!only_digits(av[i]))
+        }
+            
+		if (!only_digits(av[i])){
 			return (0);
+        }
+            
 		i++;
 	}
-	if (found_dupes(ac, av))
+	if (found_dupes(ac, av)){
 		return (0);
-	return (1);
+    }
+    return (1);
 }
 
 int		only_digits(char *str)
@@ -51,7 +56,7 @@ int		only_digits(char *str)
 }
 
 int found_dupes(int ac, char **av){
-  int x = 0;
+  int x = 1;
   int y = 0;
   while(x < ac){
     y = x + 1;

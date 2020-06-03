@@ -150,6 +150,7 @@ int contains(my_stack *stack, int low, int high){
 }
 
 void check_b(my_stack **a, my_stack **b){
+
 	int spot = find_spot(*b, (*a)->num);
 	int i = 0;
 	if (spot <= stack_len(b) / 2) {

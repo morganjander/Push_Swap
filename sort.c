@@ -40,6 +40,9 @@ void    sort_3(my_stack **stack_a, my_stack **stack_b){
 
 void	sort_4_or_5(my_stack **a, my_stack **b)
 {
+    if(is_sorted(*a)){
+        return;
+    }
 	int	min = find_min(*a);
 	int max = find_max(*a);
     int repeat = stack_len(a) - 3;
@@ -60,7 +63,9 @@ void	sort_4_or_5(my_stack **a, my_stack **b)
 }
 
 void sort_100(my_stack **a, my_stack **b, int num){
-    
+    if(is_sorted(*a)){
+        return;
+    }
     int max = find_max(*a);
     
     int range;

@@ -17,30 +17,35 @@ int main(int ac, char **av){
         char *line;
         int fd = 0;
         int i;
+        int bad_op = 0;
         i = (get_next_line(fd, &line));
         if (i){
             while (i == 1){
                 if(!check_op(line)){
-                    ft_putendl(ERROR);
-                    return 0;
+                    bad_op = 1;
                 }
                 do_op(line, &stack_a, &stack_b);
+                free(line);
                 i = (get_next_line(fd, &line));
             }
-            if(is_sorted(stack_a) && stack_b == NULL){
+        }
+        if (!bad_op){
+                if(is_sorted(stack_a) && stack_b == NULL){
                 ft_putendl(OK);
                 } 
-            else {
-                ft_putendl(KO);
+                else {
+                    ft_putendl(KO);
+                }
+            }else {
+                ft_putendl(ERROR);
             }
-        }
+        free_stack(stack_a);
+        free_stack(stack_b);
     
     } else {
         ft_putendl(ERROR);
         return 0;
     }
-	
-    
 	return (1);
 
 }
