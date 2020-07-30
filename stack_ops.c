@@ -27,6 +27,11 @@ void    do_op(char *line, my_stack **stack_a, my_stack **stack_b){
         op_sa(stack_b);
     }
 
+    else if (line[0] == 's' && line[1] == 's'){
+        op_sa(stack_a);
+        op_sa(stack_b);
+    }
+
     else if (line[0] == 'r' && line[1] == 'a'){
         op_ra(stack_a);
     }
@@ -63,7 +68,7 @@ void    do_op(char *line, my_stack **stack_a, my_stack **stack_b){
 }
 
 void op_sa(my_stack **start){
-    if (*start == NULL){
+    if (*start == NULL || (*start)->next == NULL){
         return;
     }
     my_stack *ptr;
@@ -72,7 +77,7 @@ void op_sa(my_stack **start){
 }
 
 void op_ra(my_stack **start){//top goes to bottom
-     if (*start == NULL){
+     if (*start == NULL || (*start)->next == NULL){
         return;
     }
     my_stack *ptr;

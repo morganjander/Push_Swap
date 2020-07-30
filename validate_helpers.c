@@ -94,7 +94,7 @@ int		int_overflows(const char *str)
 		str++;
 	}
 	res *= neg;
-	if (res < -2147483648)
+	if (res < -2147483647)
 		return (1);
 	return (0);
 }

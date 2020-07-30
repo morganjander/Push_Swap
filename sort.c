@@ -1,6 +1,5 @@
 #include "libft/libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
 void    sort_3(my_stack **stack_a, my_stack **stack_b){
     if(is_sorted(*stack_a)){

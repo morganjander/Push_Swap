@@ -1,6 +1,5 @@
 #include "libft/libft.h"
 #include "push_swap.h"
-# include <stdio.h>
 
 int find_min(my_stack *stack){
     int min = stack->num;

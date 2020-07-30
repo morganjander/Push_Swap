@@ -62,15 +62,12 @@ int stack_len(my_stack **head){
 }
 
 int is_sorted(my_stack *start){
-    int n = 0;
     my_stack *ptr = NULL;
     ptr = start;
-    while(ptr != NULL) {
-      if(ptr->num < n){
+    while(ptr->next != NULL) {
+      if(ptr->num > ptr->next->num){
           return 0;
-      } else {
-          n = ptr->num;
-      }
+      } 
       ptr = ptr->next;
   }
   return 1;
