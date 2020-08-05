@@ -83,7 +83,7 @@ void	sort_20(my_stack **a, my_stack **b, int len)
 	int i;
     int inc;
 
-	range = 0;
+	range = find_min(*a);
     if (len >= 20 && len <= 100){
         inc = find_max(*a) / 6;
     } else {
