@@ -1,10 +1,28 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-void    sort_3(my_stack **stack_a, my_stack **stack_b){
-    if(is_sorted(*stack_a)){
+void    sort(my_stack **a, my_stack **b, int len)
+{
+    if(is_sorted(*a)){
         return;
     }
+
+    if (len == 3){
+        sort_3(a, b);
+        return;
+    }
+    if (len == 4 || len == 5){
+        sort_4_or_5(a, b);
+        return;
+    }
+    else {
+        sort_20(a, b, len);
+        return;
+    }
+  
+}
+
+void    sort_3(my_stack **stack_a, my_stack **stack_b){
     int top, mid, bot;
     my_stack *ptr;
     ptr = *stack_a;
@@ -39,9 +57,6 @@ void    sort_3(my_stack **stack_a, my_stack **stack_b){
 
 void	sort_4_or_5(my_stack **a, my_stack **b)
 {
-    if(is_sorted(*a)){
-        return;
-    }
 	int	min = find_min(*a);
 	int max = find_max(*a);
     int repeat = stack_len(a) - 3;
@@ -52,61 +67,51 @@ void	sort_4_or_5(my_stack **a, my_stack **b)
 	while (*b)
 	{
 		if ((*b)->num == min)
-			print_do_op("pa", a, b);
+			print_do_op(PA, a, b);
 		else if ((*b)->num == max)
 		{
-			print_do_op("pa", a, b);
-			print_do_op("ra", a, b);
+			print_do_op(PA, a, b);
+			print_do_op(RA, a, b);
 		}
 	}
 }
 
-void sort_100(my_stack **a, my_stack **b, int num){
-    if(is_sorted(*a)){
-        return;
-    }
-    int max = find_max(*a);
-    
-    int range;
-    if (num == 10) {
-        range = max;
-    }
-    if (num == 100) {
-        range = max / 9;
-    }
-    if (num == 50) {
-        range = max / 5;
-    }
-    if (num == 500) {
-        range = max / 22;
-    }
-    int chunk_high = range;
-    int chunk_low = 0;
-    int hold_first;
-    int hold_second;
 
-    while (*a){
-        while (contains(*a, chunk_low, chunk_high)){
-            hold_first = search_from_top(*a, chunk_low, chunk_high);
-            hold_second = search_from_bottom(*a, chunk_low, chunk_high);
-            if (hold_first != hold_second){
-                if (moves_to_top(*a, hold_first) <= moves_to_top(*a, hold_second)) {
-                    check_a_and_b(a, b, hold_first, 1);
-                }
+void	sort_20(my_stack **a, my_stack **b, int len)
+{
+	int	range;
+	int i;
+    int inc;
 
-                else {
-                    check_a_and_b(a, b, hold_second, 2);
-                }
-            }
-            else {
-                check_a_and_b(a, b, hold_first, 1);
-            }
+	range = 0;
+    if (len >= 20 && len <= 100){
+        inc = find_max(*a) / 6;
+    } else {
+        if (find_max(*a) == len) {
+            inc = 36;
+        } else {
+            inc = find_max(*a) / 15;
         }
-        chunk_high += range;
-        chunk_low += range;
+        
     }
-
-    while (*b) {
-        print_do_op(PA, a, b);
-    }
+    
+	i = 1;
+	while (*a)
+	{
+		range += inc;
+		while (contains_range(*a, range))
+		{
+			if (!(*a))
+				break ;
+			if ((*a)->num <= range)
+			{
+				print_do_op(PB, a, b);
+				i++;
+			}
+			else
+				print_do_op(RA, a, b);
+		}
+	}
+	i--;
+	push_max_a_r(b, a, i);
 }

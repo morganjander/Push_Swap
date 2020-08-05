@@ -1,23 +1,21 @@
 LIB 	= ./libft/libft.a
-FLAGS 	= -Wall -Werror -Wextra -ggdb3
+FLAGS 	= -Wall -Werror -Wextra
 
 PNAME 	= push_swap
 CNAME	= checker
 
-POBJ 	= push_swap.o push_pop.o sort.o stack_ops.o validate.o sort_helper_functions.o validate_helpers.o
-COBJ	= checker.o stack_ops.o push_pop.o validate.o validate_helpers.o
+CSRC	= checker.c stack_ops.c push_pop.c validate.c validate_helpers.c $(LIB)
+PSRC 	= push_swap.c push_pop.c sort.c stack_ops.c validate.c sort_helper_functions.c validate_helpers.c $(LIB)
 
+all: $(CNAME) $(PNAME)
 
-all: $(PNAME) $(CNAME)
+$(CNAME):
+	gcc $(FLAGS) $(CSRC) -o $(CNAME)
 
-$(PNAME) : $(POBJ)
-	gcc -o $(PNAME) $(POBJ) -L. $(LIB)
-
-$(CNAME) : $(COBJ)
-	gcc -o $(CNAME) $(COBJ) -L. $(LIB)
-
-%.o: %.c
-	gcc $(FLAGS) -c -o $@ $<
+$(PNAME):
+	gcc $(FLAGS) $(PSRC) -o $(PNAME)
 
 clean: 
-	rm -rf $(COBJ) $(POBJ) $(CNAME) $(PNAME)
+	rm -rf $(PNAME) $(CNAME)
+
+re: clean all

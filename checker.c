@@ -22,7 +22,11 @@ int main(int ac, char **av){
         if (i){
             while (i == 1){
                 if(!check_op(line)){
-                    bad_op = 1;
+                    ft_putendl(ERROR);
+                    free_stack(stack_a);
+                    free_stack(stack_b);
+                    free(line);
+                    return 0;
                 }
                 do_op(line, &stack_a, &stack_b);
                 free(line);
